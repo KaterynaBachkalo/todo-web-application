@@ -1,4 +1,5 @@
 import { Task } from "@/app/page";
+import { Trash2 } from "lucide-react";
 import React from "react";
 
 export interface TodoItemProps {
@@ -8,8 +9,6 @@ export interface TodoItemProps {
 }
 
 const TodoItem = ({ task, toggleStatusTask, deleteTask }: TodoItemProps) => {
-  if (!task) return null;
-
   return (
     <li className="flex justify-between items-center p-2 border rounded">
       <div>
@@ -17,7 +16,7 @@ const TodoItem = ({ task, toggleStatusTask, deleteTask }: TodoItemProps) => {
           type="checkbox"
           checked={task?.status === "done"}
           onChange={() => toggleStatusTask(task.id)}
-          className="mr-2"
+          className="mr-2 cursor-pointer"
         />
         <span className={task?.status === "done" ? "line-through" : ""}>
           {task.text}
@@ -26,12 +25,10 @@ const TodoItem = ({ task, toggleStatusTask, deleteTask }: TodoItemProps) => {
           (Priority {task.priority})
         </span>
       </div>
-      <button
+      <Trash2
+        className="stroke-red-500 cursor-pointer"
         onClick={() => deleteTask(task.id)}
-        className="text-red-500 hover:underline"
-      >
-        Delete
-      </button>
+      />
     </li>
   );
 };
