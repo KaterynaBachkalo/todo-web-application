@@ -1,28 +1,46 @@
 import { Task } from "@/app/page";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 interface TodoFormProps {
   tasks: Task[];
   setTasks: (tasks: Task[]) => void;
   search: string;
   setSearch: (search: string) => void;
+  setLoading: (loading: boolean) => void;
 }
 
-const TodoForm = ({ tasks, setTasks, search, setSearch }: TodoFormProps) => {
+const TodoForm = ({
+  tasks,
+  setTasks,
+  search,
+  setSearch,
+  setLoading,
+}: TodoFormProps) => {
   const [newTask, setNewTask] = useState("");
   const [priority, setPriority] = useState(1);
 
   const addTask = async () => {
-    const res = await fetch("http://localhost:4000/api/tasks/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: newTask, priority, status: "undone" }),
-    });
-    const task = await res.json();
-    console.log("New task added:", task);
-    console.log("Current tasks:", tasks);
-    setTasks([...tasks, task]);
-    setNewTask("");
+    try {
+      setLoading(true);
+      if (newTask === "") return toast.error("Task  cannot be empty");
+      const res = await fetch("http://localhost:4000/api/tasks/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: newTask, priority, status: "undone" }),
+      });
+      const task = await res.json();
+
+      setTasks([...tasks, task]);
+
+      toast.success("Task added successfully");
+
+      setNewTask("");
+    } catch (error) {
+      console.error("Error adding task:", error);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <>
@@ -43,7 +61,7 @@ const TodoForm = ({ tasks, setTasks, search, setSearch }: TodoFormProps) => {
         />
         <button
           onClick={addTask}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
         >
           Add
         </button>
