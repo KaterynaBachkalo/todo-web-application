@@ -10,22 +10,18 @@ const TodoSorterButtons = ({
 }) => {
   return (
     <div className="flex items-center gap-4">
-      Sort by Priority
+      <p className="text-xl text-gray-500">Sort by Priority</p>
       <CircleChevronUp
         onClick={() => onChange("asc")}
-        className={
-          sortStatus === "asc"
-            ? "fill-blue-500 stroke-black cursor-pointer"
-            : "cursor-pointer"
-        }
+        className={`cursor-pointer stroke-lime-700 scale-130 transition-transform hover:scale-170 hover:shadow-lg hover:shadow-amber-300 rounded-full ${
+          sortStatus === "asc" ? "fill-lime-500" : "fill-none"
+        }`}
       />
       <CircleChevronDown
         onClick={() => onChange("desc")}
-        className={
-          sortStatus === "desc"
-            ? "fill-blue-500 stroke-black cursor-pointer"
-            : "cursor-pointer"
-        }
+        className={`cursor-pointer stroke-lime-700 scale-130 transition-transform hover:scale-170 hover:shadow-lg hover:shadow-amber-300 rounded-full ${
+          sortStatus === "desc" ? "fill-lime-500" : "fill-none"
+        }`}
       />
     </div>
   );
