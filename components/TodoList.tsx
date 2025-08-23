@@ -20,7 +20,7 @@ const TodoList = ({
     <>
       {loading && <LoaderComponent />}
 
-      <ul className="space-y-2">
+      <ul className="space-y-4">
         {!loading &&
           tasks?.length > 0 &&
           tasks.map((t) => (
