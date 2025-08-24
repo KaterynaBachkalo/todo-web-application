@@ -20,8 +20,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project (disable Turbopack)
-        run: NEXT_PRIVATE_USE_TURBOPACK=0 npm run build
+      - name: Build project (production + disable Turbopack)
+        run: |
+          NODE_ENV=production NEXT_PRIVATE_USE_TURBOPACK=0 npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
