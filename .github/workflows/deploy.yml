@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project (production + disable Turbopack)
+      - name: Build project (production)
         run: |
           NODE_ENV=production NEXT_PRIVATE_USE_TURBOPACK=0 npm run build
 
