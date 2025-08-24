@@ -10,22 +10,25 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build project (production + disable Turbopack)
+      - name: Build project
         run: |
-          NODE_ENV=production NEXT_PRIVATE_USE_TURBOPACK=0 npm run build
+          NODE_ENV=production npm run build
+        env:
+          NODE_ENV: production
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: out

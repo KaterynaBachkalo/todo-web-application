@@ -34,7 +34,7 @@ const TodoList = ({
           ))}
         {!loading && tasks?.length === 0 && (
           <Image
-            src="/no-tasks.png"
+            src="no-tasks.png"
             alt="No tasks"
             width={200}
             height={200}
