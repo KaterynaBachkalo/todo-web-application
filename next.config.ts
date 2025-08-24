@@ -6,10 +6,10 @@ const nextConfig: NextConfig = {
   output: "export",
   images: { unoptimized: true },
   basePath: isProd
-    ? "https://github.com/KaterynaBachkalo/todo-web-application"
+    ? "/https://github.com/KaterynaBachkalo/todo-web-application"
     : "",
   assetPrefix: isProd
-    ? "https://github.com/KaterynaBachkalo/todo-web-application/"
+    ? "/https://github.com/KaterynaBachkalo/todo-web-application"
     : "",
 };
 
