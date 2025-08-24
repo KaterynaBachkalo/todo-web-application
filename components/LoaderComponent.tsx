@@ -1,17 +1,9 @@
 "use client";
-import { BallTriangle } from "react-loader-spinner";
 
 export default function LoaderComponent() {
   return (
-    <BallTriangle
-      height={100}
-      width={100}
-      radius={5}
-      color="#4fa94d"
-      ariaLabel="ball-triangle-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-      visible={true}
-    />
+    <div className="flex items-center justify-center w-full h-full py-4">
+      <span className="inline-block w-10 h-10 border-4 border-lime-500 border-t-transparent rounded-full animate-spin" />
+    </div>
   );
 }
