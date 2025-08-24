@@ -26,11 +26,11 @@ const TodoItem = ({ task, toggleStatusTask, deleteTask }: TodoItemProps) => {
           />
         </span>
         <p
-          className={`text-slate-700 mr-auto sm:text-sm md:text-xl 2xl:text-2xl break-words xs:w-20 sm:w-70 md:w-100 capitalize ${
+          className={`text-slate-700 mr-auto sm:text-sm md:text-xl 2xl:text-2xl break-words xs:w-20 sm:w-70 md:w-100 ${
             task?.status === "done" ? "line-through" : ""
           }`}
         >
-          {task.text}
+          {task.text.charAt(0).toUpperCase() + task.text.slice(1)}
         </p>
         <p className="text-gray-400 xs:text-xs sm:text-sm md:text-lg 2xl:text-xl min-w-17">
           (Priority {task.priority})
