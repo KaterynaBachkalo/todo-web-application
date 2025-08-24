@@ -28,12 +28,12 @@ jobs:
         run: |
           NODE_ENV=production NEXT_PRIVATE_USE_TURBOPACK=0 npm run build
 
-      # 5️⃣ Підставляємо basePath у всіх HTML/CSS/JS файлах
-      - name: Replace basePath in HTML/CSS/JS
-        run: |
-          BASE_PATH="/todo-web-application"
-          find out -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i "s|href=\"/|href=\"$BASE_PATH/|g" {} \;
-          find out -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i "s|src=\"/|src=\"$BASE_PATH/|g" {} \;
+      # # 5️⃣ Підставляємо basePath у всіх HTML/CSS/JS файлах
+      # - name: Replace basePath in HTML/CSS/JS
+      #   run: |
+      #     BASE_PATH="/todo-web-application"
+      #     find out -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i "s|href=\"/|href=\"$BASE_PATH/|g" {} \;
+      #     find out -type f \( -name "*.html" -o -name "*.js" -o -name "*.css" \) -exec sed -i "s|src=\"/|src=\"$BASE_PATH/|g" {} \;
 
       # 6️⃣ Деплой на GitHub Pages
       - name: Deploy to GitHub Pages
