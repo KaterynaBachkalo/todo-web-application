@@ -6,7 +6,7 @@ import TodoStatusFilterButtons from "@/components/TodoStatusFilterButtons";
 import TodoForms from "@/components/TodoForms";
 import TodoList from "@/components/TodoList";
 import TodoSorterButtons from "@/components/TodoSorterButtons";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 export type Task = {
   id: number;
@@ -60,6 +60,11 @@ const Home = () => {
       setTasks(tasks.map((t) => (t.id === id ? updated : t)));
 
       fetchTasks();
+      if (updated.status === "done") {
+        toast.success("You did it! 🎉");
+      } else {
+        toast.info("Don't forget to complete your task!");
+      }
     } catch (error) {
       console.error("Error toggling task status:", error);
     } finally {
