@@ -7,6 +7,7 @@ import { Task } from "./types";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { ListPlus } from "lucide-react";
+import { addTaskApi } from "@/api/tasksApi";
 
 interface TodoAddProps {
   tasks: Task[];
@@ -16,18 +17,15 @@ interface TodoAddProps {
 
 const AddForm = ({ tasks, setTasks, setLoading }: TodoAddProps) => {
   const [newTask, setNewTask] = useState("");
-  const [priority, setPriority] = useState(1);
+  const [priority, setPriority] = useState(0);
 
   const addTask = async () => {
+    if (priority === 0) return toast.warning("Set the priority, please");
+
     try {
       setLoading(true);
       if (newTask === "") return toast.error("Task  cannot be empty");
-      const res = await fetch("http://localhost:4000/api/tasks/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: newTask, priority, status: "undone" }),
-      });
-      const task = await res.json();
+      const task = await addTaskApi(newTask, priority);
 
       setTasks([...tasks, task]);
 
@@ -47,15 +45,16 @@ const AddForm = ({ tasks, setTasks, setLoading }: TodoAddProps) => {
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
         placeholder="New task"
-        className="border p-2 flex-1 rounded w-8/9"
+        className="border p-2 flex-1 rounded"
       />
       <Input
         type="number"
         min="1"
         max="10"
-        value={priority}
+        value={priority || ""}
+        placeholder={priority ? "" : "Priority"}
         onChange={(e) => setPriority(Number(e.target.value))}
-        className="border p-2 rounded text-lime-600 w-15"
+        className="border p-2 rounded text-lime-600 w-25"
       />
       <Button
         variant="secondary"
