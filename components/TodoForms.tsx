@@ -1,4 +1,4 @@
-import { Task } from "@/app/page";
+import { Task } from "./types";
 import AddForm from "./AddForm";
 import SearchForm from "./SearchForm";
 

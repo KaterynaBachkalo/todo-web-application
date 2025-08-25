@@ -3,7 +3,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
-import { Task } from "@/app/page";
+import { Task } from "./types";
 import { Trash2 } from "lucide-react";
 import React from "react";
 

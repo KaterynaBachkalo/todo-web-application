@@ -1,8 +1,8 @@
-import { Task } from "@/app/page";
-import React from "react";
-import TodoItem from "./TodoItem";
-import LoaderComponent from "@/components/LoaderComponent";
 import Image from "next/image";
+import React from "react";
+import LoaderComponent from "@/components/LoaderComponent";
+import TodoItem from "./TodoItem";
+import { Task } from "./types";
 
 interface TodoListProps {
   tasks: Task[];

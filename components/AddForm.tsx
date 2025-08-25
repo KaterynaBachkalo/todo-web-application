@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { Task } from "@/app/page";
+import { Task } from "./types";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { ListPlus } from "lucide-react";
