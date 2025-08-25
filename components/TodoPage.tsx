@@ -7,7 +7,7 @@ import TodoStatusFilterButtons from "./TodoStatusFilterButtons";
 import TodoSorterButtons from "./TodoSorterButtons";
 import TodoList from "./TodoList";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+const API_URL: string = process.env.NEXT_PUBLIC_API_URL!;
 
 if (!API_URL) {
   console.error("Missing NEXT_PUBLIC_API_URL");
