@@ -26,7 +26,7 @@ jobs:
           NODE_ENV=production npm run build
         env:
           NODE_ENV: production
-          NEXT_PUBLIC_API_URL: ${{ env.production.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_API_URL: https://todo-web-application-back-ooje.vercel.app/api
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
