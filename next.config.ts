@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   assetPrefix: isProd ? "/todo-web-application/" : "",
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
 };
 
 export default nextConfig;

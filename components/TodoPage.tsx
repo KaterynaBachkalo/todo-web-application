@@ -7,6 +7,12 @@ import TodoStatusFilterButtons from "./TodoStatusFilterButtons";
 import TodoSorterButtons from "./TodoSorterButtons";
 import TodoList from "./TodoList";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+
+if (!API_URL) {
+  console.error("Missing NEXT_PUBLIC_API_URL");
+}
+
 const TodoPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [status, setStatus] = useState<"all" | "done" | "undone">("all");
@@ -19,11 +25,9 @@ const TodoPage = () => {
       setLoading(true);
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/tasks?${
-          search ? `search=${search}&` : ""
-        }${status ? `status=${status}` : ""}${
-          sortStatus ? `&sort=${sortStatus}` : ""
-        }`
+        `${API_URL}/tasks?${search ? `search=${search}&` : ""}${
+          status ? `status=${status}` : ""
+        }${sortStatus ? `&sort=${sortStatus}` : ""}`
       );
       const data = await res.json();
       setTasks(data);
@@ -44,16 +48,13 @@ const TodoPage = () => {
       if (!task) return;
 
       setLoading(true);
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            status: task.status === "done" ? "undone" : "done",
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/tasks/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          status: task.status === "done" ? "undone" : "done",
+        }),
+      });
       const updated = await res.json();
       setTasks(tasks.map((t) => (t.id === id ? updated : t)));
 
@@ -73,7 +74,7 @@ const TodoPage = () => {
   const deleteTask = async (id: number) => {
     try {
       setLoading(true);
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/remove/${id}`, {
+      await fetch(`${API_URL}/tasks/remove/${id}`, {
         method: "DELETE",
       });
       setTasks(tasks.filter((t) => t.id !== id));
