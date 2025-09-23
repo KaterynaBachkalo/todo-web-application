@@ -39,6 +39,24 @@ const AddForm = ({ tasks, setTasks, setLoading }: TodoAddProps) => {
     }
   };
 
+  const checkPriorityValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    if (value.length > 2) {
+      value = value.slice(0, 2);
+    }
+
+    let num = Number(value);
+
+    if (num > 10) {
+      toast.warning("Priority must be between 1 and 10");
+      return (num = 10);
+    }
+    if (num < 1 && value !== "") num = 1;
+
+    setPriority(value === "" ? 0 : num);
+  };
+
   return (
     <div className="flex gap-2">
       <Input
@@ -53,7 +71,7 @@ const AddForm = ({ tasks, setTasks, setLoading }: TodoAddProps) => {
         max="10"
         value={priority || ""}
         placeholder={priority ? "" : "Priority"}
-        onChange={(e) => setPriority(Number(e.target.value))}
+        onChange={checkPriorityValue}
         className="border p-2 rounded text-lime-600 w-25"
       />
       <Button
