@@ -14,6 +14,7 @@ const TodoPage = () => {
   const [search, setSearch] = useState("");
   const [sortStatus, setSortStatus] = useState<"asc" | "desc" | null>(null);
   const [loading, setLoading] = useState(false);
+  const [, setPosition] = useState<number>();
 
   const loadTasks = useCallback(async () => {
     try {
@@ -101,6 +102,7 @@ const TodoPage = () => {
       <TodoList
         tasks={tasks}
         setTasks={setTasks}
+        setPosition={setPosition}
         toggleStatusTask={toggleStatusTaskCheck}
         deleteTask={deleteTask}
         loading={loading}
