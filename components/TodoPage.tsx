@@ -33,7 +33,7 @@ const TodoPage = () => {
   }, [status, search, sortStatus, loadTasks]);
 
   const toggleStatusTaskCheck = async (id: number) => {
-    const task = tasks.find((t) => t.id === id);
+    const task = tasks.find((t) => t.id.toString() === id.toString());
     if (!task) return;
 
     try {
@@ -44,7 +44,9 @@ const TodoPage = () => {
         task.status === "done" ? "undone" : "done"
       );
       const updatedTask = Array.isArray(updated) ? updated[0] : updated;
-      setTasks(tasks.map((t) => (t.id === id ? updatedTask : t)));
+      setTasks(
+        tasks.map((t) => (t.id.toString() === id.toString() ? updatedTask : t))
+      );
 
       loadTasks();
 
@@ -64,7 +66,7 @@ const TodoPage = () => {
     try {
       setLoading(true);
       await deleteTaskApi(id);
-      setTasks(tasks.filter((t) => t.id !== id));
+      setTasks(tasks.filter((t) => t.id.toString() !== id.toString()));
       toast.success("You successfully removed your task! 🎉");
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -98,6 +100,7 @@ const TodoPage = () => {
       </div>
       <TodoList
         tasks={tasks}
+        setTasks={setTasks}
         toggleStatusTask={toggleStatusTaskCheck}
         deleteTask={deleteTask}
         loading={loading}
