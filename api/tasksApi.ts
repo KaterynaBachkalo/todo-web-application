@@ -46,3 +46,13 @@ export const addTaskApi = async (newTask: string, priority: number) => {
   if (!res.ok) throw new Error("Failed to delete task");
   return res.json();
 };
+
+export const reorderTasksApi = async (ids: number[]) => {
+  const res = await fetch(`${API_URL}/tasks/update-positions`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ids }),
+  });
+  if (!res.ok) throw new Error("Failed to reorder tasks");
+  return res.json();
+};
