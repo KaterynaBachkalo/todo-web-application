@@ -19,10 +19,12 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { reorderTasksApi } from "@/api/tasksApi";
 
 interface TodoListProps {
   tasks: Task[];
   setTasks: (tasks: Task[]) => void;
+  setPosition: (position: number) => void;
   toggleStatusTask: (id: number) => void;
   deleteTask: (id: number) => void;
   loading: boolean;
@@ -31,6 +33,7 @@ interface TodoListProps {
 const TodoList = ({
   tasks,
   setTasks,
+  setPosition,
   toggleStatusTask,
   deleteTask,
   loading,
@@ -42,7 +45,7 @@ const TodoList = ({
     })
   );
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (!over) return;
@@ -52,7 +55,15 @@ const TodoList = ({
       const newIndex = tasks.findIndex((t) => t.id === Number(over.id));
 
       if (oldIndex !== -1 && newIndex !== -1) {
-        setTasks(arrayMove(tasks, oldIndex, newIndex));
+        const newTasks = arrayMove(tasks, oldIndex, newIndex);
+        setTasks(newTasks);
+        setPosition(newIndex + 1);
+
+        const ids = newTasks.map((t) => {
+          return t.id;
+        });
+
+        await reorderTasksApi(ids);
       }
     }
   };
